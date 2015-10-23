@@ -10,12 +10,9 @@ import java.io.UnsupportedEncodingException;
  * This input streams removes invalid XML Characters from the stream. As a
  * result you should be able to read invalid documents.
  * <p>
- * <p>
  * Feel free to submit patchs on this class.
  * 
  * @author Nicolas Richeton
- * 
- *
  */
 public class XmlCleanupInputStream extends InputStream {
 
@@ -37,11 +34,13 @@ public class XmlCleanupInputStream extends InputStream {
 
 	@Override
 	public int read() throws IOException {
-		if (error != null)
+		if (error != null) {
 			throw new IOException(error);
+		}
 
-		if (buffer == null)
+		if (buffer == null) {
 			return -1;
+		}
 
 		while (position >= buffer.length) {
 			String temp = originalReader.readLine();
@@ -57,8 +56,9 @@ public class XmlCleanupInputStream extends InputStream {
 			}
 		}
 
-		if (buffer == null)
+		if (buffer == null) {
 			return -1;
+		}
 
 		int result = buffer[position];
 		position++;
